@@ -2,17 +2,17 @@
 DSLOCAL="/Volumes/Macintosh HD/private/var/db/dslocal/nodes/Default"
 
 # 2. Create the user entry and assign essential system attributes
-dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/pp
-dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/pp UserShell /bin/zsh
-dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/pp RealName "Your Real Name"
-dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/pp NFSHomeDirectory /Users/pp
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/admin
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/admin UserShell /bin/zsh
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/admin RealName "Your Real Name"
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/admin NFSHomeDirectory /Users/admin
 
 # 3. Assign a Unique ID (501 is typically the first user account) and primary group ID (20 = staff)
-dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/pp UniqueID 501
-dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/pp PrimaryGroupID 20
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/admin UniqueID 501
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/admin PrimaryGroupID 20
 
 # 4. Set the user password
-dscl -f "$DSLOCAL" localhost -passwd /Local/Default/Users/pp "temp"
+dscl -f "$DSLOCAL" localhost -passwd /Local/Default/Users/admin "temp"
 
 # 5. Grant the user Administrator privileges
-dscl -f "$DSLOCAL" localhost -append /Local/Default/Groups/admin GroupMembership pp
+dscl -f "$DSLOCAL" localhost -append /Local/Default/Groups/admin GroupMembership admin
