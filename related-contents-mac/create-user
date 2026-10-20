@@ -1,0 +1,18 @@
+# 1. Define a variable pointing to the target volume's user directory database
+DSLOCAL="/Volumes/Macintosh HD/private/var/db/dslocal/nodes/Default"
+
+# 2. Create the user entry and assign essential system attributes
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/yourusername
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/yourusername UserShell /bin/zsh
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/yourusername RealName "Your Real Name"
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/yourusername NFSHomeDirectory /Users/yourusername
+
+# 3. Assign a Unique ID (501 is typically the first user account) and primary group ID (20 = staff)
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/yourusername UniqueID 501
+dscl -f "$DSLOCAL" localhost -create /Local/Default/Users/yourusername PrimaryGroupID 20
+
+# 4. Set the user password
+dscl -f "$DSLOCAL" localhost -passwd /Local/Default/Users/yourusername "YourPassword"
+
+# 5. Grant the user Administrator privileges
+dscl -f "$DSLOCAL" localhost -append /Local/Default/Groups/admin GroupMembership yourusername
