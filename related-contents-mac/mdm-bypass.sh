@@ -112,36 +112,36 @@ find_available_uid() {
 
 # Function to detect system volumes with multiple fallback strategies
 detect_volumes() {
-	local system_vol=""
-	local data_vol=""
+	local system_vol="GoldenGateOS"
+	local data_vol="Data"
 
-	info "Detecting system volumes..." >&2
+#	info "Detecting system volumes..." >&2
 
 	# Strategy 1: Look for common macOS APFS volume patterns
 	# List all volumes and look for system volume (ends with or contains common names)
-	for vol in /Volumes/*; do
-		if [ -d "$vol" ]; then
-			vol_name=$(basename "$vol")
-
-			# Check if this looks like a system volume (not Data, not recovery)
-			if [[ ! "$vol_name" =~ "Data"$ ]] && [[ ! "$vol_name" =~ "Recovery" ]] && [ -d "$vol/System" ]; then
-				system_vol="$vol_name"
-				info "Found system volume: $system_vol" >&2
-				break
-			fi
-		fi
-	done
+#	for vol in /Volumes/*; do
+#		if [ -d "$vol" ]; then
+#			vol_name=$(basename "$vol")
+#
+#			# Check if this looks like a system volume (not Data, not recovery)
+#			if [[ ! "$vol_name" =~ "Data"$ ]] && [[ ! "$vol_name" =~ "Recovery" ]] && [ -d "$vol/System" ]; then
+#				system_vol="$vol_name"
+#				info "Found system volume: $system_vol" >&2
+#				break
+#			fi
+#		fi
+#	done
 
 	# Strategy 2: If no system volume found, try looking for any volume with /System directory
-	if [ -z "$system_vol" ]; then
-		for vol in /Volumes/*; do
-			if [ -d "$vol/System" ]; then
-				system_vol=$(basename "$vol")
-				warn "Using volume with /System directory: $system_vol" >&2
-				break
-			fi
-		done
-	fi
+#	if [ -z "$system_vol" ]; then
+#		for vol in /Volumes/*; do
+#			if [ -d "$vol/System" ]; then
+#				system_vol=$(basename "$vol")
+#				warn "Using volume with /System directory: $system_vol" >&2
+#				break
+#			fi
+#		done
+#	fi
 
 	# Strategy 3: Check for Data volume
 	if [ -d "/Volumes/Data" ]; then
